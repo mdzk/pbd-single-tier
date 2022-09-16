@@ -37,7 +37,7 @@ function read_data()
 {
     global $hub;
     $query = "select * from dt_prodi";
-    $result = mysqlI_query($hub, $query); ?>
+    $result = mysqli_query($hub, $query); ?>
     
     <h2>Read Data Program Studi</h2>
     <table border=1 cellpadding=2>
@@ -128,7 +128,7 @@ function create_prodi() {
     global $_POST;
     $query = "INSERT INTO dt_prodi (kdprodi, nmprodi, akreditasi) VALUES ";
     $query .= " ('". $_POST["kdprodi"]."', '".$_POST["nmprodi"]."', '".$_POST["akreditasi"]."')";
-    mysqli_query($hub, $query) or die(mysql_error());
+    mysqli_query($hub, $query) or die(mysqli_error($hub));
 }
 
 function update_prodi() {
@@ -137,6 +137,6 @@ function update_prodi() {
     $query = "UPDATE dt_prodi";
     $query .= " SET kdprodi='" . $_POST["kdprodi"]."', nmprodi= '". $_POST["nmprodi"]."', akreditasi='". $_POST["akreditasi"]."'";
     $query .= " WHERE idprodi = ".$_POST["idprodi"];
-    mysqli_query($hub, $query) or die(mysql_error());
+    mysqli_query($hub, $query) or die(mysqli_error($hub));
 }
 ?>
