@@ -45,7 +45,7 @@ function read_data() {
     <h2>Read Data Program Studi</h2>
     <table border=1 cellpadding=2>
         <tr>
-            <td colspan="5"><a href="curd_3.php?a=input">INPUT</a></td>
+            <td colspan="5"><a href="curd_4.php?a=input">INPUT</a></td>
         </tr>
         <tr>
             <td>ID</td>
@@ -94,7 +94,7 @@ function input_data() {
         <br>
         <input type="submit" name="action" value="Simpan">
         <br>
-        <a href="curd_3.php?a=list">Batal</a>
+        <a href="curd_4.php?a=list">Batal</a>
     </form>
 <?php } ?>
 
