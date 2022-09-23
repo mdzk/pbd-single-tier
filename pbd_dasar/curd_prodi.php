@@ -45,7 +45,33 @@ mysqli_close($hub);
     <title>Document</title>
 
     <style>
-        
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f1f1f1;
+        }
+        .container {
+            bacground-color: #fff;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -56,31 +82,18 @@ mysqli_close($hub);
         $query = "select * from dt_prodi";
         $result = mysqli_query($hub, $query); ?>
         
-        <h2>Read Data Program Studi</h2>
-        <table border=1 cellpadding=2>
-            <tr>
-                <td colspan="5"><a href="curd_prodi.php?a=input">INPUT</a></td>
-            </tr>
-            <tr>
-                <td>ID</td>
-                <td>KODE</td>
-                <td>NAMA PRODI</td>
-                <td>AKREDITASI</td>
-                <td>AKSI</td>
-            </tr>
+        <div class="container">
+            <h2>Read Data Program Studi</h2>
             <?php while($row = mysqli_fetch_array($result)) { ?>
-            <tr>
-                <td><?php echo $row['idprodi']; ?></td>
-                <td><?php echo $row['kdprodi']; ?></td>
-                <td><?php echo $row['nmprodi']; ?></td>
-                <td><?php echo $row['akreditasi']; ?></td>
-                <td>
-                    <a href="curd_prodi.php?a=edit&id=<?php echo $row['idprodi']; ?>">EDIT</a>
-                    <a href="curd_prodi.php?a=hapus&id=<?php echo $row['idprodi']; ?>">HAPUS</a>
-                </td>
-            </tr>
+            <div class="card">
+                <p><?php echo $row['akreditasi']; ?></p>
+                <h2><span><?php echo $row['kdprodi']; ?> </span><?php echo $row['nmprodi']; ?></h2>
+                <a href="curd_prodi.php?a=edit&id=<?php echo $row['idprodi']; ?>">EDIT</a>
+                <a href="curd_prodi.php?a=hapus&id=<?php echo $row['idprodi']; ?>">HAPUS</a>
+            </div>
             <?php } ?>
-        </table>
+        </div>
+        
     <?php } ?>
 
     <?php
@@ -209,7 +222,7 @@ mysqli_close($hub);
         $cekKodeProdiLain = mysqli_query($hub, "SELECT * FROM dt_prodi WHERE kdprodi = '$kdprodi'");
 
         if (mysqli_num_rows($cekNamaProdi) == 1 && mysqli_num_rows($cekKodeProdi) == 1) {
-            header('Location: curd_prodi.php');
+            mysqli_query($hub, "UPDATE dt_prodi SET akreditasi='$akreditasi' WHERE idprodi='$id'");
         } else if (mysqli_num_rows($cekKodeProdi) == 1 && mysqli_num_rows($cekNamaProdiLain) == 0) {
             echo "<script>alert('nama prodi diperbarui');</script>";
             mysqli_query($hub, "UPDATE dt_prodi SET nmprodi='$nmprodi', akreditasi='$akreditasi' WHERE idprodi='$id'");
