@@ -48,10 +48,9 @@ mysqli_close($hub);
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap');
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #f1f1f1;
+            background-color: #ffefd0;
         }
         .container {
-            bacground-color: #fff;
             padding-right: 15px;
             padding-left: 15px;
             margin-right: auto;
@@ -72,6 +71,82 @@ mysqli_close($hub);
                 width: 1170px;
             }
         }
+
+        h2 {
+            padding: 0px;
+            margin: 0px;
+            width: fit-content;
+            margin-bottom: 30px;
+            display: inline-block;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .clear {
+            float: none;
+            clear: both;
+        }
+
+        .button {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 13px;
+            background-color: #e1e1e1;
+            text-decoration: none;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .small {
+            font-size: 15px;
+            display: inline-block;
+            margin-left: 10px;
+            color: #fbebd5;
+            background-color: #105157;
+            margin-bottom: 15px;
+        }
+
+        .box {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 20px 0px #0000001a;
+        }
+
+        .contents {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .card {
+            color: #fff;
+            padding: 20px;
+            margin: 10px 10px;
+            border-radius: 20px;
+            flex-grow: 1
+        }
+
+        .grade {
+            padding: 10px;
+            margin: 0;
+            background-color: rgba(0,0,0,0.2);
+            font-weight: bold;
+            width: fit-content;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        .kdprodi {
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -83,15 +158,23 @@ mysqli_close($hub);
         $result = mysqli_query($hub, $query); ?>
         
         <div class="container">
-            <h2>Read Data Program Studi</h2>
-            <?php while($row = mysqli_fetch_array($result)) { ?>
-            <div class="card">
-                <p><?php echo $row['akreditasi']; ?></p>
-                <h2><span><?php echo $row['kdprodi']; ?> </span><?php echo $row['nmprodi']; ?></h2>
-                <a href="curd_prodi.php?a=edit&id=<?php echo $row['idprodi']; ?>">EDIT</a>
-                <a href="curd_prodi.php?a=hapus&id=<?php echo $row['idprodi']; ?>">HAPUS</a>
+            <div class="box">
+                <h2>Data Program Studi </h2><a href="?a=input" class="btn small">add prodi</a>
+                <div class="contents">
+                    <?php while($row = mysqli_fetch_array($result)) { ?>
+                    
+                    <div class="card" style="background-color: #<?php if($row['akreditasi'] == 'A') {echo '33BC84';} else if($row['akreditasi'] == 'B') {echo 'FEB12F';} else if($row['akreditasi'] == 'C') {echo 'DE7588';} else {echo '105157';} ?>;">
+                        <p class="grade"><?php echo $row['akreditasi']; ?></p>
+                        <h3><span class="kdprodi"><?php echo $row['kdprodi']; ?> </span><?php echo $row['nmprodi']; ?></h3>
+                        <div class="button">
+                            <a class="btn edit" href="curd_prodi.php?a=edit&id=<?php echo $row['idprodi']; ?>">Edit</a>
+                            <a class="btn hapus" href="curd_prodi.php?a=hapus&id=<?php echo $row['idprodi']; ?>">Hapus</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
-            <?php } ?>
         </div>
         
     <?php } ?>
