@@ -98,6 +98,39 @@ mysqli_close($hub);
             text-decoration: none;
             color: #fff;
             box-sizing: border-box;
+            border: none;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .edit {
+            background-color: rgb(203 203 203 / 24%);
+            font-weight: 700;
+        }
+
+        .hapus {
+            background-color: rgb(145 145 145 / 0%);
+            color: rgb(255 255 255 / 77%);
+        }
+
+        .save {
+            background-color: #33BC84;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .back {
+            margin-top: 15px;
+            background-color: rgb(145 145 145 / 0%);
+            color: rgb(223 156 35 / 77%);
+            font-weight: 700;
+        }
+
+        .danger {
+            background-color: #105157;
+            font-weight: 700;
+            cursor: pointer;
         }
 
         .small {
@@ -116,7 +149,6 @@ mysqli_close($hub);
             border-radius: 15px;
             padding: 30px;
             box-sizing: border-box;
-            box-shadow: 0px 0px 20px 0px #0000001a;
         }
 
         .contents {
@@ -146,6 +178,16 @@ mysqli_close($hub);
 
         .kdprodi {
             font-weight: 500;
+        }
+
+        .form-control > input[type=text] {
+            padding: 10px 15px;
+            font-family: 'Nunito', sans-serif;
+            width: 100%;
+            font-size: 20px;
+            border-radius: 13px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -187,25 +229,30 @@ mysqli_close($hub);
             "akreditasi" => "-"
         ); ?>
 
-        <h2>Input Data Program Studi</h2>
-        <form name="latihan" action="curd_prodi.php?a=list" method="post" onsubmit="return validate()">
-            <input type="hidden" name="sql" value="create">
-            Kode Prodi
-            <input type="text" name="kdprodi" maxlength="6" size="6" value="<?php echo trim($row["kdprodi"]) ?>" />
-            <br>
-            Nama Prodi
-            <input type="text" name="nmprodi" maxlength="70" size="70" value="<?php echo trim($row["nmprodi"]) ?>" />
-            <br>
-            Akreditasi Prodi
-            <input type="radio" name="akreditasi" value="-" <?php if($row["akreditasi"]=='-' || $row["akreditasi"]=='') { echo "checked=\"checked\""; } else {echo ""; } ?>> -
-            <input type="radio" name="akreditasi" value="A" <?php if($row["akreditasi"]=='A') { echo "checked=\"checked\""; } else {echo ""; } ?>> A
-            <input type="radio" name="akreditasi" value="B" <?php if($row["akreditasi"]=='B') { echo "checked=\"checked\""; } else {echo ""; } ?>> B
-            <input type="radio" name="akreditasi" value="C" <?php if($row["akreditasi"]=='C') { echo "checked=\"checked\""; } else {echo ""; } ?>> C
-            <br>
-            <input type="submit" name="action" value="Simpan">
-            <br>
-            <a href="curd_prodi.php?a=list">Batal</a>
-        </form>
+        <div class="container">
+            <div class="box">
+        
+                <h2>Input Data Program Studi</h2>
+                <form class="form-control" name="latihan" action="curd_prodi.php?a=list" method="post" onsubmit="return validate()">
+                    <input type="hidden" name="sql" value="create">
+                    Kode Prodi <br>
+                    <input type="text" placeholder="Masukkan kode prodi" name="kdprodi" maxlength="6" size="6" value="<?php echo trim($row["kdprodi"]) ?>" />
+                    <br>
+                    Nama Prodi <br>
+                    <input type="text" placeholder="Masukkan nama prodi" name="nmprodi" maxlength="70" size="70" value="<?php echo trim($row["nmprodi"]) ?>" />
+                    <br>
+                    Akreditasi Prodi <br>
+                    <input type="radio" name="akreditasi" value="-" <?php if($row["akreditasi"]=='-' || $row["akreditasi"]=='') { echo "checked=\"checked\""; } else {echo ""; } ?>> -
+                    <input type="radio" name="akreditasi" value="A" <?php if($row["akreditasi"]=='A') { echo "checked=\"checked\""; } else {echo ""; } ?>> A
+                    <input type="radio" name="akreditasi" value="B" <?php if($row["akreditasi"]=='B') { echo "checked=\"checked\""; } else {echo ""; } ?>> B
+                    <input type="radio" name="akreditasi" value="C" <?php if($row["akreditasi"]=='C') { echo "checked=\"checked\""; } else {echo ""; } ?>> C
+                    <br>
+                    <input class="btn save" type="submit" name="action" value="Simpan">
+                    <a class="btn back" href="curd_prodi.php?a=list">Batal</a>
+                </form>
+
+            </div>
+        </div>
     <?php } ?>
 
     <?php 
@@ -215,26 +262,29 @@ mysqli_close($hub);
         $result = mysqli_query($hub, $query);
         $row    = mysqli_fetch_array($result); ?>
 
-        <h2>Edit Data Program Studi</h2>
-        <form action="curd_prodi.php?a=list" method="post">
-            <input type="hidden" name="sql" value="update">
-            <input type="hidden" name="idprodi" value="<?php echo trim($id) ?>">
-            Kode Prodi
-            <input type="text" name="kdprodi" maxlength="6" size="6" value="<?php echo trim($row["kdprodi"]) ?>" />
-            <br>
-            Nama Prodi
-            <input type="text" name="nmprodi" maxlength="70" size="70" value="<?php echo trim($row["nmprodi"]) ?>" />
-            <br>
-            Akreditasi Prodi
-            <input type="radio" name="akreditasi" value="-" <?php if($row["akreditasi"]=='-' || $row["akreditasi"]=='') { echo "checked=\"checked\""; } else {echo ""; } ?>> -
-            <input type="radio" name="akreditasi" value="A" <?php if($row["akreditasi"]=='A' ) { echo "checked=\"checked\""; } else {echo "";} ?> > A
-            <input type="radio" name="akreditasi" value="B" <?php if($row["akreditasi"]=='B' ) { echo "checked=\"checked\""; } else {echo "";} ?> > B
-            <input type="radio" name="akreditasi" value="C" <?php if($row["akreditasi"]=='C' ) { echo "checked=\"checked\""; } else {echo "";} ?> > C
-            <br>
-            <input type="submit" name="action" value="Simpan">
-            <br>
-            <a href="curd_prodi.php?a=list">Batal</a>
-        </form>
+        <div class="container">
+            <div class="box">
+                <h2>Edit Data Program Studi</h2>
+                <form class="form-control" action="curd_prodi.php?a=list" method="post">
+                    <input type="hidden" name="sql" value="update">
+                    <input type="hidden" name="idprodi" value="<?php echo trim($id) ?>">
+                    Kode Prodi <br>
+                    <input type="text" name="kdprodi" maxlength="6" size="6" value="<?php echo trim($row["kdprodi"]) ?>" />
+                    <br>
+                    Nama Prodi <br>
+                    <input type="text" name="nmprodi" maxlength="70" size="70" value="<?php echo trim($row["nmprodi"]) ?>" />
+                    <br>
+                    Akreditasi Prodi <br>
+                    <input type="radio" name="akreditasi" value="-" <?php if($row["akreditasi"]=='-' || $row["akreditasi"]=='') { echo "checked=\"checked\""; } else {echo ""; } ?>> -
+                    <input type="radio" name="akreditasi" value="A" <?php if($row["akreditasi"]=='A' ) { echo "checked=\"checked\""; } else {echo "";} ?> > A
+                    <input type="radio" name="akreditasi" value="B" <?php if($row["akreditasi"]=='B' ) { echo "checked=\"checked\""; } else {echo "";} ?> > B
+                    <input type="radio" name="akreditasi" value="C" <?php if($row["akreditasi"]=='C' ) { echo "checked=\"checked\""; } else {echo "";} ?> > C
+                    <br>
+                    <input class="btn save" type="submit" name="action" value="Simpan">
+                    <a class="btn back" href="curd_prodi.php?a=list">Batal</a>
+                </form>
+            </div>
+        </div>
     <?php } ?>
 
     <?php
@@ -244,29 +294,32 @@ mysqli_close($hub);
         $result = mysqli_query($hub, $query);
         $row    = mysqli_fetch_array($result); ?>
 
-        <h2>Hapus Data Program Studi</h2>
-        <form action="curd_prodi.php?a=list" method="post">
-            <input type="hidden" name="sql" value="delete">
-            <input type="hidden" name="idprodi" value="<?php echo trim($id) ?>">
-            <table>
-                <tr>
-                    <td width=100>kode</td>
-                    <td><?php echo trim($row["kdprodi"]) ?></td>
-                </tr>
-                <tr>
-                    <td>Nama Prodi</td>
-                    <td><?php echo trim($row["nmprodi"]) ?></td>
-                </tr> 
-                <tr>
-                    <td>Akreditasi</td>
-                    <td><?php echo trim($row["akreditasi"]) ?></td>
-                </tr>
-            </table>
-            <br>
-            <input type="submit" name="action" value="Hapus">
-            <br>
-            <a href="curd_prodi.php?a=list">Batal</a>
-        </form>
+        <div class="container">
+            <div class="box">
+                <h2>Hapus Data Program Studi</h2>
+                <form action="curd_prodi.php?a=list" method="post">
+                    <input type="hidden" name="sql" value="delete">
+                    <input type="hidden" name="idprodi" value="<?php echo trim($id) ?>">
+                    <table>
+                        <tr>
+                            <td width=100>Kode</td>
+                            <td><?php echo trim($row["kdprodi"]) ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Prodi</td>
+                            <td><?php echo trim($row["nmprodi"]) ?></td>
+                        </tr> 
+                        <tr>
+                            <td>Akreditasi</td>
+                            <td><?php echo trim($row["akreditasi"]) ?></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input class="btn danger" type="submit" name="action" value="Hapus">
+                    <a class="btn back" href="curd_prodi.php?a=list">Batal</a>
+                </form>
+            </div>
+        </div>
     <?php } ?>
 
     <?php
